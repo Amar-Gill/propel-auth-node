@@ -1,4 +1,4 @@
-import jwt, {VerifyOptions} from "jsonwebtoken"
+import * as jose from "jose"
 import {
     AccessToken,
     addUserToOrg,
@@ -537,14 +537,14 @@ function extractBearerToken(authHeader?: string): string {
     return authHeaderParts[1]
 }
 
-function verifyToken(bearerToken: string, tokenVerificationMetadata: TokenVerificationMetadata): User {
-    const options: VerifyOptions = {
+async function verifyToken(bearerToken: string, tokenVerificationMetadata: TokenVerificationMetadata): Promise<User> {
+    const options: jose.JWTVerifyOptions = {
         algorithms: ["RS256"],
         issuer: tokenVerificationMetadata.issuer,
     }
     try {
-        const decoded = jwt.verify(bearerToken, tokenVerificationMetadata.verifierKey, options)
-        return toUser(<InternalUser>decoded)
+        const decoded = await jose.jwtVerify(bearerToken, tokenVerificationMetadata.verifierKey, options)
+        return toUser(<InternalUser>(decoded as unknown))
     } catch (e: unknown) {
         if (e instanceof Error) {
             throw new UnauthorizedException(e.message)

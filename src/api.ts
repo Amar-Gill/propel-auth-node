@@ -32,9 +32,10 @@ import {
     UpdateUserPasswordException,
     UserNotFoundException
 } from "./exceptions";
+import { KeyLike } from "jose"
 
 export type TokenVerificationMetadata = {
-    verifierKey: string
+    verifierKey: KeyLike | Uint8Array
     issuer: string
 }
 
