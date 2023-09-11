@@ -2,7 +2,7 @@
   "name": "@propelauth/node",
   "repository": {
     "type": "git",
-    "url": "https://github.com/PropelAuth/node"
+    "url": "https://github.com/Amar-Gill/propel-auth-node"
   },
   "version": "v2.1.3",
   "license": "MIT",
