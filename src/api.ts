@@ -53,9 +53,8 @@ export function fetchTokenVerificationMetadata(authUrl: URL,
             throw new Error("Unknown error when fetching token verification metadata")
         }
 
-        const jsonParse = JSON.parse(httpResponse.response)
         return {
-            verifierKey: jsonParse.verifier_key_pem,
+            verifierKey: httpResponse.response.verifier_key_pem,
             issuer: formatIssuer(authUrl),
         }
     })
