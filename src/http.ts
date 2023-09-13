@@ -1,6 +1,6 @@
-export type HttpResponse = {
+export type HttpResponse<T = any> = {
     statusCode?: number
-    response: string
+    response: T
 }
 
 export async function httpRequest(
